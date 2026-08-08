@@ -9,7 +9,6 @@
       }
     ],
     "verbatimModuleSyntax": true,
-    "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],

@@ -1,0 +1,37 @@
+---
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+import { type Locale, PL_LOCALE, EN_LOCALE } from '@/i18n/locales/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+}
+
+const { title, description, locale } = Astro.props;
+
+const canonicalUrl = getAbsoluteLocaleUrl(locale, Astro.url.pathname);
+
+const alternateLocales = [PL_LOCALE, EN_LOCALE];
+---
+
+<title>{title} | MM Invest</title>
+<meta name="description" content={description} />
+
+<link rel="canonical" href={canonicalUrl} />
+
+{
+  alternateLocales.map((alternateLocale) => (
+    <link
+      rel="alternate"
+      hreflang={alternateLocale}
+      href={getAbsoluteLocaleUrl(alternateLocale, Astro.url.pathname)}
+    />
+  ))
+}
+
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={getAbsoluteLocaleUrl('pl', Astro.url.pathname)}
+/>

@@ -1,0 +1,16 @@
+---
+import { getTranslations, type Locale } from '@/i18n/locales/utils';
+import Container from '@/components/Container.astro';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = getTranslations(lang);
+---
+
+<Container>
+  <h1>{t.title}</h1>
+  <p>{t.description}</p>
+</Container>

@@ -1,0 +1,63 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { EN_LOCALE, PL_LOCALE, type Locale } from '@/i18n/locales/utils';
+
+const currentLocale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
+
+const languages = [
+  {
+    locale: PL_LOCALE,
+    label: 'Polski',
+    shortLabel: 'PL',
+  },
+  {
+    locale: EN_LOCALE,
+    label: 'English',
+    shortLabel: 'EN',
+  },
+];
+
+const currentLanguage =
+  languages.find(({ locale }) => locale === currentLocale) ?? languages[0];
+
+const currentPath =
+  currentLocale === EN_LOCALE
+    ? Astro.url.pathname.replace(/^\/en/, '') || '/'
+    : Astro.url.pathname;
+---
+
+<details class="relative">
+  <summary class="flex cursor-pointer list-none items-center gap-2">
+    <span>{currentLanguage.shortLabel}</span>
+
+    <svg
+      class="h-4 w-4"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </summary>
+
+  <div
+    class="absolute right-0 z-50 mt-2 min-w-32 rounded-lg border bg-white p-1 shadow-lg"
+  >
+    {
+      languages
+        .filter(({ locale }) => locale !== currentLocale)
+        .map(({ locale, label }) => (
+          <a
+            href={getRelativeLocaleUrl(locale, currentPath)}
+            class="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+            lang={locale}
+          >
+            {label}
+          </a>
+        ))
+    }
+  </div>
+</details>
