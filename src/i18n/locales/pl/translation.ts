@@ -4,6 +4,9 @@ export const pl = {
   nav: {
     home: 'Strona główna',
     about: 'O nas',
+    contact: 'Kontakt',
+    realizations: 'Realizacje',
+    offer: 'Oferta',
   },
   footer: {
     openHours: {
