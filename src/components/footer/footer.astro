@@ -65,12 +65,26 @@ const t = getTranslations(locale);
         <ul>
           <li class="font-bold">
             {t.footer.address.phoneNumberTitle}{' '}
-            <span class="font-normal">{t.footer.address.phoneNumber}</span>
+            <a
+              class="font-normal"
+              href={`tel:${t.footer.address.phoneNumberPrimary}`}
+            >
+              {t.footer.address.phoneNumberPrimary}
+            </a>
+            {' '}|{' '}
+            <a
+              class="font-normal"
+              href={`tel:${t.footer.address.phoneNumberSecondary}`}
+            >
+              {t.footer.address.phoneNumberSecondary}
+            </a>
           </li>
           <li class="font-bold">
             {t.footer.address.emailTitle}
             {' '}
-            <span class="font-normal">{t.footer.address.email}</span>
+            <a class="font-normal" href={`mailto:${t.footer.address.email}`}>
+              {t.footer.address.email}
+            </a>
           </li>
         </ul>
       </div>
