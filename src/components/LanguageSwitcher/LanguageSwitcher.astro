@@ -1,37 +1,47 @@
 ---
-import { getRelativeLocaleUrl } from 'astro:i18n';
-import { EN_LOCALE, PL_LOCALE, type Locale } from '@/i18n/locales/utils';
+import {
+  EN_LOCALE,
+  PL_LOCALE,
+  locales,
+  type Locale,
+} from '@/i18n/locales/utils';
+import { getRouteKeyFromSlug, getSlugForLocale } from '@/i18n/routes';
+import { LANGUAGES } from '@/global-constants.ts';
 
 const currentLocale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
 
-const languages = [
-  {
-    locale: PL_LOCALE,
-    label: 'Polski',
-    shortLabel: 'PL',
-  },
-  {
-    locale: EN_LOCALE,
-    label: 'English',
-    shortLabel: 'EN',
-  },
-];
+const currentLanguage = LANGUAGES.find((l) => l.locale === currentLocale)!;
 
-const currentLanguage =
-  languages.find(({ locale }) => locale === currentLocale) ?? languages[0];
+const currentPath = Astro.url.pathname;
+const segments = currentPath.split('/').filter(Boolean);
 
-const currentPath =
+const currentSlug =
   currentLocale === EN_LOCALE
-    ? Astro.url.pathname.replace(/^\/en/, '') || '/'
-    : Astro.url.pathname;
+    ? segments.slice(1).join('/')
+    : segments.join('/');
+
+const routeKey = currentSlug
+  ? getRouteKeyFromSlug(currentLocale, currentSlug)
+  : null;
+
+function resolveUrlForLocale(targetLocale: Locale): string {
+  if (!currentSlug || !routeKey) {
+    return targetLocale === EN_LOCALE ? '/en' : '/';
+  }
+
+  const targetSlug = getSlugForLocale(routeKey, targetLocale);
+  return targetLocale === EN_LOCALE ? `/en/${targetSlug}` : `/${targetSlug}`;
+}
 ---
 
-<details class="relative">
-  <summary class="flex cursor-pointer list-none items-center gap-2">
-    <span>{currentLanguage.shortLabel}</span>
-
+<details class="group relative">
+  <summary
+    class="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-sm text-white transition-colors hover:bg-white/10"
+  >
+    <span aria-hidden="true">{currentLanguage.flag}</span>
+    <span class="font-medium">{currentLanguage.shortLabel}</span>
     <svg
-      class="h-4 w-4"
+      class="h-3.5 w-3.5 text-white/70 transition-transform duration-200 group-open:rotate-180"
       viewBox="0 0 20 20"
       fill="currentColor"
       aria-hidden="true"
@@ -44,20 +54,55 @@ const currentPath =
   </summary>
 
   <div
-    class="absolute right-0 z-50 mt-2 min-w-32 rounded-lg border bg-white p-1 shadow-lg"
+    class="absolute right-0 z-50 mt-2 min-w-40 origin-top-right animate-[fadeIn_0.15s_ease-out] overflow-hidden rounded-xl border border-gray-100 bg-white p-1.5 shadow-xl ring-1 ring-black/5"
   >
     {
-      languages
-        .filter(({ locale }) => locale !== currentLocale)
-        .map(({ locale, label }) => (
+      LANGUAGES.map(({ locale, label, shortLabel, flag }) => {
+        const isActive = locale === currentLocale;
+        return (
           <a
-            href={getRelativeLocaleUrl(locale, currentPath)}
-            class="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+            href={resolveUrlForLocale(locale)}
+            class:list={[
+              'flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors',
+              isActive
+                ? 'bg-gray-100 font-medium text-gray-900'
+                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+            ]}
             lang={locale}
+            aria-current={isActive ? 'true' : undefined}
           >
-            {label}
+            <span aria-hidden="true">{flag}</span>
+            <span class="flex-1">{label}</span>
+            {isActive && (
+              <svg
+                class="h-4 w-4 text-gray-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            )}
           </a>
-        ))
+        );
+      })
     }
   </div>
 </details>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>
