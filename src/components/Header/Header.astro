@@ -3,6 +3,8 @@ import { getTranslations, PL_LOCALE } from '@/i18n/locales/utils';
 import type { Locale } from '@/i18n/locales/utils';
 import Container from '@components/Container.astro';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
+import Hamburger from '@components/Hamburger/Hamburger.astro';
+import { getNavLinks } from '@/i18n/nav.ts';
 
 interface Props {
   locale: Locale;
@@ -11,6 +13,7 @@ interface Props {
 const { locale } = Astro.props;
 
 const t = getTranslations(locale);
+const navLinks = getNavLinks(locale, t);
 ---
 
 <header class="w-full bg-[#26519e]">
@@ -20,33 +23,17 @@ const t = getTranslations(locale);
         >MM Invest</a
       >
 
-      <div class="flex items-center gap-6 text-white">
-        <a
-          class="hover:cursor-pointer hover:underline"
-          href={locale === PL_LOCALE ? '/' : '/en/'}>{t.nav.home}</a
-        >
-        <a
-          class="hover:cursor-pointer hover:underline"
-          href={locale === PL_LOCALE ? '/o-nas/' : '/en/about-us/'}
-          >{t.nav.about}</a
-        >
-        <a
-          class="hover:cursor-pointer hover:underline"
-          href={locale === PL_LOCALE ? '/oferta/' : '/en/offer/'}
-          >{t.nav.offer}</a
-        >
-        <a
-          class="hover:cursor-pointer hover:underline"
-          href={locale === PL_LOCALE ? '/realizacje/' : '/en/realizations/'}
-          >{t.nav.realizations}</a
-        >
-        <a
-          class="hover:cursor-pointer hover:underline"
-          href={locale === PL_LOCALE ? '/kontakt/' : '/en/contact/'}
-          >{t.nav.contact}</a
-        >
+      <div class="hidden items-center gap-6 text-white lg:flex">
+        {
+          navLinks.map(({ href, label }) => (
+            <a class="hover:cursor-pointer hover:underline" href={href}>
+              {label}
+            </a>
+          ))
+        }
+        <LanguageSwitcher locale={locale} />
       </div>
-      <LanguageSwitcher locale={locale} />
+      <Hamburger locale={locale} />
     </nav>
   </Container>
 </header>

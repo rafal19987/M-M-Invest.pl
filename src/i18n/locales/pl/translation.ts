@@ -7,6 +7,8 @@ export const pl = {
     contact: 'Kontakt',
     realizations: 'Realizacje',
     offer: 'Oferta',
+    openMenu: 'Otwórz menu',
+    closeMenu: 'Zamknij menu',
   },
   footer: {
     openHours: {

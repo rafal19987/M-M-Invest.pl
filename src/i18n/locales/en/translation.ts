@@ -7,6 +7,8 @@ export const en = {
     contact: 'Contact',
     realizations: 'Realizations',
     offer: 'Offer',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
   },
   footer: {
     openHours: {
