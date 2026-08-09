@@ -13,19 +13,25 @@ const { locale } = Astro.props;
 const t = getTranslations(locale);
 ---
 
-<header>
+<header class="w-full bg-[#26519e]">
   <Container>
-    <nav class="flex w-full items-center justify-between py-4">
-      <a href={locale === PL_LOCALE ? '/' : '/en/'}>MM Invest</a>
+    <nav class="flex h-18 w-full items-center justify-between">
+      <a class="text-white" href={locale === PL_LOCALE ? '/' : '/en/'}
+        >MM Invest</a
+      >
 
-      <div class="flex items-center gap-6">
-        <a href={locale === PL_LOCALE ? '/' : '/en/'}>{t.nav.home}</a>
-        <a href={locale === PL_LOCALE ? '/about/' : '/en/ebout/'}
+      <div class="flex items-center gap-6 text-white">
+        <a
+          class="hover:cursor-pointer hover:underline"
+          href={locale === PL_LOCALE ? '/' : '/en/'}>{t.nav.home}</a
+        >
+        <a
+          class="hover:cursor-pointer hover:underline"
+          href={locale === PL_LOCALE ? '/o-nas/' : '/en/about-us/'}
           >{t.nav.about}</a
         >
-
-        <LanguageSwitcher locale={locale} />
       </div>
+      <LanguageSwitcher locale={locale} />
     </nav>
   </Container>
 </header>
