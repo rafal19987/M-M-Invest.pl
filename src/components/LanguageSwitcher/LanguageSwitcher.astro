@@ -64,21 +64,15 @@ function resolveUrlForLocale(targetLocale: Locale): string {
     {
       LANGUAGES.map(({ locale, label, shortLabel, flag }) => {
         const isActive = locale === currentLocale;
-        return (
-          <a
-            href={resolveUrlForLocale(locale)}
-            class:list={[
-              'flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors',
-              isActive
-                ? 'bg-gray-100 font-medium text-gray-900'
-                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-            ]}
-            lang={locale}
-            aria-current={isActive ? 'true' : undefined}
-          >
-            <span aria-hidden="true">{flag}</span>
-            <span class="flex-1">{label}</span>
-            {isActive && (
+
+        if (isActive) {
+          return (
+            <span
+              class="flex cursor-default items-center gap-2.5 rounded-lg bg-gray-100 px-3 py-2 text-sm font-medium text-gray-900"
+              aria-current="true"
+            >
+              <span aria-hidden="true">{flag}</span>
+              <span class="flex-1">{label}</span>
               <svg
                 class="h-4 w-4 text-gray-400"
                 viewBox="0 0 20 20"
@@ -91,7 +85,18 @@ function resolveUrlForLocale(targetLocale: Locale): string {
                   clip-rule="evenodd"
                 />
               </svg>
-            )}
+            </span>
+          );
+        }
+
+        return (
+          <a
+            href={resolveUrlForLocale(locale)}
+            class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors hover:bg-gray-50 hover:text-gray-900"
+            lang={locale}
+          >
+            <span aria-hidden="true">{flag}</span>
+            <span class="flex-1">{label}</span>
           </a>
         );
       })
