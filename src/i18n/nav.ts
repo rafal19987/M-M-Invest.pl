@@ -23,5 +23,9 @@ export function getNavLinks(
       href: locale === PL_LOCALE ? '/kontakt/' : '/en/contact/',
       label: t.nav.contact,
     },
+    {
+      href: locale === PL_LOCALE ? '/blog/' : '/en/blog/',
+      label: t.nav.blog,
+    },
   ];
 }

@@ -17,6 +17,10 @@ export const routes = {
     [PL_LOCALE]: 'oferta',
     [EN_LOCALE]: 'offer',
   },
+  blog: {
+    [PL_LOCALE]: 'blog',
+    [EN_LOCALE]: 'blog',
+  },
 } as const;
 
 export type RouteKey = keyof typeof routes;

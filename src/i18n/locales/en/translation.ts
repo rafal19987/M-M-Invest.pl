@@ -7,9 +7,19 @@ export const en = {
     contact: 'Contact',
     realizations: 'Realizations',
     offer: 'Offer',
+    blog: 'Blog',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     breadcrumbLabel: 'Breadcrumb',
+  },
+  blog: {
+    title: 'Blog',
+    subtitle:
+      'Insights, guides, and news from the world of real estate investment',
+    readMore: 'Read more',
+    readingTime: 'min read',
+    backToList: 'Back to blog',
+    emptyState: 'No articles yet. Check back soon.',
   },
   footer: {
     openHours: {

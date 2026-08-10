@@ -7,9 +7,18 @@ export const pl = {
     contact: 'Kontakt',
     realizations: 'Realizacje',
     offer: 'Oferta',
+    blog: 'Blog',
     openMenu: 'Otwórz menu',
     closeMenu: 'Zamknij menu',
     breadcrumbLabel: 'Ścieżka nawigacji',
+  },
+  blog: {
+    title: 'Blog',
+    subtitle: 'Analizy, poradniki i aktualności ze świata inwestycji',
+    readMore: 'Czytaj więcej',
+    readingTime: 'min czytania',
+    backToList: 'Wróć do bloga',
+    emptyState: 'Brak artykułów w tej chwili. Zajrzyj tu wkrótce.',
   },
   footer: {
     openHours: {

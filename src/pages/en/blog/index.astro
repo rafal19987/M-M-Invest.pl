@@ -1,0 +1,130 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Layout from '@/layouts/Layout.astro';
+import { getTranslations } from '@/i18n/locales/utils';
+import { getReadingTime } from '@/i18n/reading-time';
+import Container from '@components/Container.astro';
+
+const locale = 'en' as const;
+const t = getTranslations(locale);
+
+const allPosts = await getCollection(
+  'blog',
+  ({ data }) => data.locale === locale,
+);
+const posts = allPosts
+  .sort(
+    (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
+  )
+  .map((post) => ({
+    ...post,
+    readingTime: getReadingTime(post.body ?? ''),
+  }));
+
+const [featured, ...rest] = posts;
+
+const dateFormatter = new Intl.DateTimeFormat('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout>
+  <Container>
+    <header class="mb-14 border-b border-[#E4E1D9] pb-8">
+      <p class="font-mono text-xs tracking-[0.2em] text-[#B8912F] uppercase">
+        MM Invest / {t.nav.blog}
+      </p>
+      <h1 class="mt-3 font-serif text-5xl font-medium text-[#1A1D24]">
+        {t.blog.title}
+      </h1>
+      <p class="mt-3 max-w-xl text-[#6B7280]">{t.blog.subtitle}</p>
+    </header>
+
+    {posts.length === 0 && <p class="text-[#6B7280]">{t.blog.emptyState}</p>}
+
+    {
+      featured && (
+        <a
+          href={`/en/blog/${featured.data.slug}/`}
+          class="group mb-16 grid gap-8 border-b border-[#E4E1D9] pb-16 md:grid-cols-2"
+        >
+          {featured.data.coverImage && (
+            <div class="aspect-4/3 overflow-hidden bg-[#EDEAE2]">
+              <Image
+                src={featured.data.coverImage}
+                alt={featured.data.coverImageAlt ?? ''}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          )}
+          <div class="flex flex-col justify-center">
+            <div class="flex items-center gap-3 font-mono text-xs text-[#6B7280]">
+              <span>{dateFormatter.format(featured.data.publishedDate)}</span>
+              <span class="text-[#E4E1D9]">|</span>
+              <span>{featured.data.category}</span>
+              <span class="text-[#E4E1D9]">|</span>
+              <span>
+                {featured.readingTime} {t.blog.readingTime}
+              </span>
+            </div>
+            <h2 class="mt-4 font-serif text-3xl font-medium text-[#1A1D24] transition-colors group-hover:text-[#26519e]">
+              {featured.data.title}
+            </h2>
+            <p class="mt-3 text-[#6B7280]">{featured.data.description}</p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-[#26519e]">
+              {t.blog.readMore}
+              <svg
+                class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3 10a.75.75 0 01.75-.75h10.638L11.29 6.15a.75.75 0 111.08-1.04l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.08-1.04l3.098-3.1H3.75A.75.75 0 013 10z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </div>
+        </a>
+      )
+    }
+
+    <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        rest.map((post) => (
+          <a href={`/blog/${post.data.slug}/`} class="group flex flex-col">
+            {post.data.coverImage && (
+              <div class="aspect-4/3 overflow-hidden bg-[#EDEAE2]">
+                <Image
+                  src={post.data.coverImage}
+                  alt={post.data.coverImageAlt ?? ''}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  widths={[300, 600]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+            )}
+            <div class="mt-4 flex items-center gap-3 font-mono text-xs text-[#6B7280]">
+              <span>{dateFormatter.format(post.data.publishedDate)}</span>
+              <span class="text-[#E4E1D9]">|</span>
+              <span>
+                {post.readingTime} {t.blog.readingTime}
+              </span>
+            </div>
+            <h3 class="mt-2 font-serif text-xl font-medium text-[#1A1D24] transition-colors group-hover:text-[#26519e]">
+              {post.data.title}
+            </h3>
+            <p class="mt-2 text-sm text-[#6B7280]">{post.data.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+</Layout>
