@@ -1,6 +1,7 @@
 ---
 locale: "pl"
 slug: "trendy-na-rynku-nieruchomosci-2026"
+translationId: "market-trends-2026"
 title: "Trendy na rynku nieruchomości w 2026 roku"
 description: "Co zmienia się w podejściu inwestorów i jak przygotować się na nadchodzący rok."
 publishedDate: 2026-06-12

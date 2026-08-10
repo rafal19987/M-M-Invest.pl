@@ -8,9 +8,10 @@ import { getNavLinks } from '@/i18n/nav.ts';
 
 interface Props {
   locale: Locale;
+  alternateUrls?: Partial<Record<Locale, string>>;
 }
 
-const { locale } = Astro.props;
+const { locale, alternateUrls } = Astro.props;
 
 const t = getTranslations(locale);
 const navLinks = getNavLinks(locale, t);
@@ -31,9 +32,9 @@ const navLinks = getNavLinks(locale, t);
             </a>
           ))
         }
-        <LanguageSwitcher locale={locale} />
+        <LanguageSwitcher locale={locale} alternateUrls={alternateUrls} />
       </div>
-      <Hamburger locale={locale} />
+      <Hamburger locale={locale} alternateUrls={alternateUrls} />
     </nav>
   </Container>
 </header>

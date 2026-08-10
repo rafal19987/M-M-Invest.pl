@@ -1,6 +1,7 @@
 ---
 locale: "en"
 slug: "real-estate-market-trends-2026"
+translationId: "market-trends-2026"
 title: "Real Estate Market Trends in 2026"
 description: "What's changing in investor priorities and how to prepare for the year ahead."
 publishedDate: 2026-06-12

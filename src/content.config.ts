@@ -8,6 +8,7 @@ const blog = defineCollection({
     z.object({
       locale: z.enum(['pl', 'en']),
       slug: z.string(),
+      translationId: z.string(),
       title: z.string(),
       description: z.string(),
       publishedDate: z.coerce.date(),

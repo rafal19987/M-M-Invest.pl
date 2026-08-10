@@ -5,9 +5,10 @@ import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
 
 interface Props {
   locale: Locale;
+  alternateUrls?: Partial<Record<Locale, string>>;
 }
 
-const { locale } = Astro.props;
+const { locale, alternateUrls } = Astro.props;
 
 const t = getTranslations(locale);
 const navLinks = getNavLinks(locale, t);
@@ -51,7 +52,7 @@ const navLinks = getNavLinks(locale, t);
       ))
     }
     <div class="mt-4">
-      <LanguageSwitcher locale={locale} />
+      <LanguageSwitcher locale={locale} alternateUrls={alternateUrls} />
     </div>
   </nav>
 </div>

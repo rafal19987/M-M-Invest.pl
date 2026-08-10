@@ -1,13 +1,14 @@
 ---
-import {
-  EN_LOCALE,
-  PL_LOCALE,
-  locales,
-  type Locale,
-} from '@/i18n/locales/utils';
+import { EN_LOCALE, PL_LOCALE, type Locale } from '@/i18n/locales/utils';
 import { getRouteKeyFromSlug, getSlugForLocale } from '@/i18n/routes';
 import { LANGUAGES } from '@/global-constants.ts';
 
+interface Props {
+  locale?: Locale;
+  alternateUrls?: Partial<Record<Locale, string>>;
+}
+
+const { alternateUrls } = Astro.props;
 const currentLocale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
 
 const currentLanguage = LANGUAGES.find((l) => l.locale === currentLocale)!;
@@ -25,6 +26,10 @@ const routeKey = currentSlug
   : null;
 
 function resolveUrlForLocale(targetLocale: Locale): string {
+  if (alternateUrls?.[targetLocale]) {
+    return alternateUrls[targetLocale]!;
+  }
+
   if (!currentSlug || !routeKey) {
     return targetLocale === EN_LOCALE ? '/en' : '/';
   }

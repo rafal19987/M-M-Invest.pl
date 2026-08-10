@@ -10,9 +10,10 @@ import Container from '@components/Container.astro';
 interface Props {
   image?: string;
   breadcrumbLabel?: string;
+  alternateUrls?: Partial<Record<Locale, string>>;
 }
 
-const { image, breadcrumbLabel } = Astro.props;
+const { image, breadcrumbLabel, alternateUrls } = Astro.props;
 
 const locale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
 
@@ -28,7 +29,7 @@ const t = getTranslations(locale);
     image={image}
   />
   <body>
-    <Header locale={locale} />
+    <Header locale={locale} alternateUrls={alternateUrls} />
     <main class="min-h-screen w-full py-6">
       <Container>
         <Breadcrumb locale={locale} lastLabel={breadcrumbLabel} />

@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '@/layouts/Layout.astro';
-import { getTranslations } from '@/i18n/locales/utils';
+import { EN_LOCALE, getTranslations, PL_LOCALE } from '@/i18n/locales/utils';
 import { getReadingTime } from '@/i18n/reading-time';
 import Container from '@components/Container.astro';
 
@@ -21,6 +21,20 @@ const { Content } = await render(post);
 const t = getTranslations(locale);
 const readingTime = getReadingTime(post.body ?? '');
 
+const allPosts = await getCollection('blog');
+const alternatePost = allPosts.find(
+  (p) =>
+    p.data.translationId === post.data.translationId &&
+    p.data.locale !== locale,
+);
+
+const alternateUrls = alternatePost
+  ? {
+      [EN_LOCALE]: `/en/blog/${post.data.slug}/`,
+      [PL_LOCALE]: `/blog/${alternatePost.data.slug}/`,
+    }
+  : undefined;
+
 const dateFormatter = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
   month: 'long',
@@ -28,7 +42,7 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
 });
 ---
 
-<Layout breadcrumbLabel={post.data.title}>
+<Layout breadcrumbLabel={post.data.title} alternateUrls={alternateUrls}>
   <Container>
     <article>
       <h1
