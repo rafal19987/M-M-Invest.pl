@@ -1,0 +1,108 @@
+---
+import { getTranslations, EN_LOCALE, type Locale } from '@/i18n/locales/utils';
+import { getRouteKeyFromSlug, getHomeUrl, type RouteKey } from '@/i18n/routes';
+
+interface Props {
+  locale: Locale;
+  lastLabel?: string;
+}
+
+const { locale, lastLabel } = Astro.props;
+const t = getTranslations(locale);
+
+const navLabels: Record<RouteKey, string> = {
+  about: t.nav.about,
+  offer: t.nav.offer,
+  realizations: t.nav.realizations,
+  contact: t.nav.contact,
+};
+
+const rawSegments = Astro.url.pathname.split('/').filter(Boolean);
+const segments = locale === EN_LOCALE ? rawSegments.slice(1) : rawSegments;
+
+function humanize(slug: string): string {
+  return slug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+const crumbs: { label: string; href?: string }[] = [
+  { label: t.nav.home, href: getHomeUrl(locale) },
+];
+
+segments.forEach((segment, index) => {
+  const isLast = index === segments.length - 1;
+  const routeKey = getRouteKeyFromSlug(locale, segment);
+
+  const label =
+    isLast && lastLabel
+      ? lastLabel
+      : routeKey
+        ? navLabels[routeKey]
+        : humanize(segment);
+
+  const href = isLast
+    ? undefined
+    : `${locale === EN_LOCALE ? '/en' : ''}/${segments.slice(0, index + 1).join('/')}/`;
+
+  crumbs.push({ label, href });
+});
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map((crumb, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: crumb.label,
+    ...(crumb.href && { item: new URL(crumb.href, Astro.site).toString() }),
+  })),
+};
+---
+
+{
+  crumbs.length > 1 && (
+    <>
+      <nav aria-label={t.nav.breadcrumbLabel} class="text-sm text-gray-500">
+        <ol class="flex flex-wrap items-center gap-1.5">
+          {crumbs.map((crumb, index) => {
+            const isLast = index === crumbs.length - 1;
+            return (
+              <li class="flex items-center gap-1.5">
+                {index > 0 && (
+                  <svg
+                    class="h-3.5 w-3.5 text-gray-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                )}
+                {isLast || !crumb.href ? (
+                  <span class="font-medium text-gray-900" aria-current="page">
+                    {crumb.label}
+                  </span>
+                ) : (
+                  <a
+                    href={crumb.href}
+                    class="transition-colors hover:text-gray-900 hover:underline"
+                  >
+                    {crumb.label}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    </>
+  )
+}

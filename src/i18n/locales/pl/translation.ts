@@ -9,6 +9,7 @@ export const pl = {
     offer: 'Oferta',
     openMenu: 'Otwórz menu',
     closeMenu: 'Zamknij menu',
+    breadcrumbLabel: 'Ścieżka nawigacji',
   },
   footer: {
     openHours: {

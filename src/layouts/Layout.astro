@@ -4,12 +4,15 @@ import Header from '@/components/Header/Header.astro';
 import Footer from '@components/Footer/Footer.astro';
 import '../styles/global.css';
 import { getTranslations, PL_LOCALE, type Locale } from '@/i18n/locales/utils';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb.astro';
+import Container from '@components/Container.astro';
 
 interface Props {
   image?: string;
+  breadcrumbLabel?: string;
 }
 
-const { image } = Astro.props;
+const { image, breadcrumbLabel } = Astro.props;
 
 const locale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
 
@@ -26,7 +29,10 @@ const t = getTranslations(locale);
   />
   <body>
     <Header locale={locale} />
-    <main class="h-full min-h-screen w-full py-12">
+    <main class="h-full min-h-screen w-full py-6">
+      <Container>
+        <Breadcrumb locale={locale} lastLabel={breadcrumbLabel} />
+      </Container>
       <slot />
     </main>
     <Footer locale={locale} />

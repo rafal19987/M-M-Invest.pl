@@ -9,6 +9,14 @@ export const routes = {
     [PL_LOCALE]: 'kontakt',
     [EN_LOCALE]: 'contact',
   },
+  realizations: {
+    [PL_LOCALE]: 'realizacje',
+    [EN_LOCALE]: 'realizations',
+  },
+  offer: {
+    [PL_LOCALE]: 'oferta',
+    [EN_LOCALE]: 'offer',
+  },
 } as const;
 
 export type RouteKey = keyof typeof routes;
@@ -25,4 +33,8 @@ export function getRouteKeyFromSlug(
 
 export function getSlugForLocale(key: RouteKey, locale: Locale): string {
   return routes[key][locale];
+}
+
+export function getHomeUrl(locale: Locale): string {
+  return locale === EN_LOCALE ? '/en/' : '/';
 }

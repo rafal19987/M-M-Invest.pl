@@ -9,6 +9,7 @@ export const en = {
     offer: 'Offer',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
+    breadcrumbLabel: 'Breadcrumb',
   },
   footer: {
     openHours: {
