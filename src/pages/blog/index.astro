@@ -99,9 +99,9 @@ const dateFormatter = new Intl.DateTimeFormat('en-GB', {
     <div class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
       {
         rest.map((post) => (
-          <a href={`/en/blog/${post.data.slug}/`} class="group flex flex-col">
+          <a href={`/blog/${post.data.slug}/`} class="group flex flex-col">
             {post.data.coverImage && (
-              <div class="aspect-[4/3] overflow-hidden bg-[#EDEAE2]">
+              <div class="aspect-4/3 overflow-hidden bg-[#EDEAE2]">
                 <Image
                   src={post.data.coverImage}
                   alt={post.data.coverImageAlt ?? ''}
