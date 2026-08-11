@@ -95,8 +95,8 @@ const options = [
     document.documentElement.classList.toggle('dark', isDark);
   }
 
-  function updateActiveOption(theme: string) {
-    document.querySelectorAll('[data-theme-value]').forEach((btn) => {
+  function updateActiveOption(theme: string, scope: ParentNode) {
+    scope.querySelectorAll('[data-theme-value]').forEach((btn) => {
       btn.classList.toggle(
         'is-active',
         btn.getAttribute('data-theme-value') === theme,
@@ -104,19 +104,37 @@ const options = [
     });
   }
 
-  function init() {
-    const details = document.querySelector('[data-theme-switcher]');
+  function initInstance(details: HTMLDetailsElement) {
     const stored = localStorage.getItem('theme') || 'system';
-    updateActiveOption(stored);
+    updateActiveOption(stored, details);
 
-    document.querySelectorAll('[data-theme-value]').forEach((btn) => {
+    details.querySelectorAll('[data-theme-value]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const value = btn.getAttribute('data-theme-value')!;
         localStorage.setItem('theme', value);
         applyTheme(value);
-        updateActiveOption(value);
-        if (details instanceof HTMLDetailsElement) details.open = false;
+
+        document.querySelectorAll('[data-theme-switcher]').forEach((d) => {
+          updateActiveOption(value, d);
+        });
+
+        details.open = false;
       });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!details.open) return;
+
+      const target = event.target as Node;
+      if (!details.contains(target)) {
+        details.open = false;
+      }
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('[data-theme-switcher]').forEach((details) => {
+      if (details instanceof HTMLDetailsElement) initInstance(details);
     });
 
     window
@@ -125,14 +143,6 @@ const options = [
         const current = localStorage.getItem('theme') || 'system';
         if (current === 'system') applyTheme('system');
       });
-
-    document.addEventListener('click', (event) => {
-      if (!(details instanceof HTMLDetailsElement) || !details.open) return;
-      const target = event.target as Node;
-      if (!details.contains(target)) {
-        details.open = false;
-      }
-    });
   }
 
   document.addEventListener('DOMContentLoaded', init);

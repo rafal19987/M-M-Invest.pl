@@ -118,14 +118,22 @@ function resolveUrlForLocale(targetLocale: Locale): string {
 </style>
 
 <script>
-  const details = document.querySelector('[data-language-switcher]');
+  function initInstance(details: HTMLDetailsElement) {
+    document.addEventListener('click', (event) => {
+      if (!details.open) return;
 
-  document.addEventListener('click', (event) => {
-    if (!(details instanceof HTMLDetailsElement) || !details.open) return;
+      const target = event.target as Node;
+      if (!details.contains(target)) {
+        details.open = false;
+      }
+    });
+  }
 
-    const target = event.target as Node;
-    if (!details.contains(target)) {
-      details.open = false;
-    }
-  });
+  function init() {
+    document.querySelectorAll('[data-language-switcher]').forEach((details) => {
+      if (details instanceof HTMLDetailsElement) initInstance(details);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
 </script>
