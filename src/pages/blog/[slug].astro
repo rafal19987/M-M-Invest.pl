@@ -46,20 +46,20 @@ const dateFormatter = new Intl.DateTimeFormat('pl-PL', {
   <Container>
     <article>
       <h1
-        class="mt-6 font-serif text-4xl leading-tight font-medium text-[#1A1D24] md:text-5xl"
+        class="mt-6 font-serif text-4xl leading-tight font-medium text-[var(--color-ink)] md:text-5xl"
       >
         {post.data.title}
       </h1>
 
       <div
-        class="mt-6 flex flex-wrap items-center gap-3 border-y border-[#E4E1D9] py-3 font-mono text-xs text-[#6B7280]"
+        class="mt-6 flex flex-wrap items-center gap-3 border-y border-[var(--color-border)] py-3 font-mono text-xs text-[var(--color-muted)]"
       >
         <span>{post.data.author}</span>
-        <span class="text-[#E4E1D9]">|</span>
+        <span class="opacity-40">|</span>
         <span>{dateFormatter.format(post.data.publishedDate)}</span>
-        <span class="text-[#E4E1D9]">|</span>
+        <span class="opacity-40">|</span>
         <span>{post.data.category}</span>
-        <span class="text-[#E4E1D9]">|</span>
+        <span class="opacity-40">|</span>
         <span>{readingTime} {t.blog.readingTime}</span>
       </div>
 
@@ -76,7 +76,7 @@ const dateFormatter = new Intl.DateTimeFormat('pl-PL', {
       }
 
       <div
-        class="prose prose-neutral prose-headings:font-serif prose-headings:font-medium prose-a:text-[#26519e] prose-a:no-underline hover:prose-a:underline mt-10 max-w-none"
+        class="prose prose-neutral dark:prose-invert prose-headings:font-serif prose-headings:font-medium prose-a:text-[var(--color-brand)] prose-a:no-underline hover:prose-a:underline mt-10 max-w-none"
       >
         <Content />
       </div>

@@ -28,7 +28,9 @@ const t = getTranslations(locale);
     locale={locale}
     image={image}
   />
-  <body>
+  <body
+    class="bg-[var(--color-bg)] text-[var(--color-ink)] transition-colors duration-300"
+  >
     <Header locale={locale} alternateUrls={alternateUrls} />
     <main class="min-h-screen w-full py-6">
       <Container>
