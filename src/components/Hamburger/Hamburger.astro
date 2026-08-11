@@ -1,0 +1,134 @@
+---
+import { getTranslations, type Locale } from '@/i18n/locales/utils.ts';
+import { getNavLinks, isActiveLink } from '@/i18n/nav.ts';
+import LanguageSwitcher from '@components/LanguageSwitcher/LanguageSwitcher.astro';
+import ThemeSwitcher from '@components/ThemeSwitcher/ThemeSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  alternateUrls?: Partial<Record<Locale, string>>;
+}
+
+const { locale, alternateUrls } = Astro.props;
+
+const t = getTranslations(locale);
+const navLinks = getNavLinks(locale, t);
+const currentPath = Astro.url.pathname;
+---
+
+<button
+  id="menu-toggle"
+  class="group relative z-50 flex size-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-white/20 transition-colors hover:cursor-pointer hover:bg-white/10 lg:hidden"
+  aria-label={t.nav.openMenu}
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+  data-label-open={t.nav.openMenu}
+  data-label-close={t.nav.closeMenu}
+>
+  <span
+    class="block h-0.5 w-6 rounded-lg bg-white transition-transform duration-300 ease-in-out group-aria-expanded:translate-y-2 group-aria-expanded:rotate-45"
+  ></span>
+  <span
+    class="block h-0.5 w-6 rounded-lg bg-white transition-opacity duration-200 ease-in-out group-aria-expanded:opacity-0"
+  ></span>
+  <span
+    class="block h-0.5 w-6 rounded-lg bg-white transition-transform duration-300 ease-in-out group-aria-expanded:-translate-y-2 group-aria-expanded:-rotate-45"
+  ></span>
+</button>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-40 translate-x-full bg-neutral-900 transition-transform duration-300 ease-in-out"
+>
+  <nav
+    class="flex h-full flex-col items-center justify-center gap-8 text-white"
+  >
+    {
+      navLinks.map(({ href, label }) => {
+        const isActive = isActiveLink(currentPath, href);
+
+        if (isActive) {
+          return (
+            <span
+              class="nav-link-mobile nav-link-mobile--active cursor-default text-3xl font-medium"
+              aria-current="page"
+            >
+              {label}
+            </span>
+          );
+        }
+
+        return (
+          <a
+            href={href}
+            class="nav-link-mobile text-3xl font-medium text-white/80"
+          >
+            {label}
+          </a>
+        );
+      })
+    }
+    <div class="mt-4 flex gap-4">
+      <LanguageSwitcher locale={locale} alternateUrls={alternateUrls} />
+      <ThemeSwitcher locale={locale} />
+    </div>
+  </nav>
+</div>
+
+<style>
+  .nav-link-mobile {
+    position: relative;
+    padding-bottom: 4px;
+    color: white;
+  }
+
+  .nav-link-mobile::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-link-mobile:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link-mobile--active::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const button = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const lgBreakpoint = window.matchMedia('(min-width: 1024px)');
+  const labelOpen = button?.dataset.labelOpen ?? 'Open menu';
+  const labelClose = button?.dataset.labelClose ?? 'Close menu';
+
+  function closeMenu() {
+    button?.setAttribute('aria-expanded', 'false');
+    button?.setAttribute('aria-label', labelOpen);
+    menu?.classList.remove('translate-x-0');
+    menu?.classList.add('translate-x-full');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  button?.addEventListener('click', () => {
+    const isOpen = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!isOpen));
+    button.setAttribute('aria-label', isOpen ? labelOpen : labelClose);
+    menu?.classList.toggle('translate-x-full', isOpen);
+    menu?.classList.toggle('translate-x-0', !isOpen);
+    document.body.classList.toggle('overflow-hidden', !isOpen);
+  });
+
+  lgBreakpoint.addEventListener('change', (e) => {
+    if (e.matches) closeMenu();
+  });
+</script>

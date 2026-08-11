@@ -1,0 +1,93 @@
+---
+import { getTranslations, PL_LOCALE } from '@/i18n/locales/utils';
+import type { Locale } from '@/i18n/locales/utils';
+import Container from '@components/Container.astro';
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
+import Hamburger from '@components/Hamburger/Hamburger.astro';
+import { getNavLinks, isActiveLink } from '@/i18n/nav.ts';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher.astro';
+
+interface Props {
+  locale: Locale;
+  alternateUrls?: Partial<Record<Locale, string>>;
+}
+
+const { locale, alternateUrls } = Astro.props;
+
+const t = getTranslations(locale);
+const navLinks = getNavLinks(locale, t);
+const currentPath = Astro.url.pathname;
+---
+
+<header class="w-full bg-[var(--color-brand-surface)]">
+  <Container>
+    <nav class="flex h-18 w-full items-center justify-between">
+      <a class="text-white" href={locale === PL_LOCALE ? '/' : '/en/'}
+        >MM Invest</a
+      >
+
+      <div class="hidden items-center gap-4 text-white lg:flex">
+        {
+          navLinks.map(({ href, label }) => {
+            const isActive = isActiveLink(currentPath, href);
+
+            if (isActive) {
+              return (
+                <span
+                  class="nav-link nav-link--active cursor-default"
+                  aria-current="page"
+                >
+                  {label}
+                </span>
+              );
+            }
+
+            return (
+              <a class="nav-link text-white/85" href={href}>
+                {label}
+              </a>
+            );
+          })
+        }
+        <LanguageSwitcher locale={locale} alternateUrls={alternateUrls} />
+        <ThemeSwitcher locale={locale} />
+      </div>
+      <Hamburger locale={locale} alternateUrls={alternateUrls} />
+    </nav>
+  </Container>
+</header>
+
+<style>
+  .nav-link {
+    position: relative;
+    padding-bottom: 2px;
+    color: white;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1.5px;
+    width: 100%;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease-out;
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link--active {
+    font-weight: 600;
+  }
+
+  .nav-link--active::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script></script>

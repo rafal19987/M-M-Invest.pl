@@ -1,0 +1,98 @@
+---
+import { getTranslations, type Locale } from '@/i18n/locales/utils';
+import Container from '@components/Container.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const t = getTranslations(locale);
+---
+
+<footer
+  class="h-fit min-h-96 w-full bg-[var(--color-brand-surface)] px-5 py-12 text-white lg:p-24 lg:py-24"
+>
+  <Container>
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <div class="flex flex-col gap-4">
+        <h3 class="font-semibold">{t.footer.openHours.title}</h3>
+        <ul class="flex flex-col gap-1 text-white/80">
+          <li>{t.footer.openHours.monFri}</li>
+          <li>{t.footer.openHours.saturday}</li>
+          <li>{t.footer.openHours.sunday}</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-xl">{t.footer.company.title}</h3>
+        <ul class="flex flex-col gap-1 text-white/80">
+          <li>{t.footer.company.dataProjects}</li>
+          <li>{t.footer.company.facadeProjects}</li>
+          <li>{t.footer.company.transport}</li>
+          <li>{t.footer.company.news}</li>
+          <li>{t.footer.company.blog}</li>
+          <li>{t.footer.company.communityInitiatives}</li>
+          <li>{t.footer.company.privacyPolicy}</li>
+          <li>{t.footer.company.branches}</li>
+          <li>{t.footer.company.contact}</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-xl">{t.footer.materials.title}</h3>
+        <ul class="flex flex-col gap-1 text-white/80">
+          <li>{t.footer.materials.roofing}</li>
+          <li>{t.footer.materials.insulationFacades}</li>
+          <li>{t.footer.materials.pavingFencing}</li>
+          <li>{t.footer.materials.finishingMaterials}</li>
+          <li>{t.footer.materials.constructionMaterials}</li>
+          <li>{t.footer.materials.bathrooms}</li>
+          <li>{t.footer.materials.doorsFlooring}</li>
+          <li>{t.footer.materials.balconiesTerraces}</li>
+          <li>{t.footer.materials.garage}</li>
+          <li>{t.footer.materials.garden}</li>
+        </ul>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h3 class="text-xl">{t.footer.address.title}</h3>
+        <ul class="flex flex-col gap-1 text-white/80">
+          <li class="text-md font-bold text-white">{t.footer.address.name}</li>
+          <li>{t.footer.address.city}</li>
+          <li>{t.footer.address.zipCode} {t.footer.address.postCity}</li>
+          <li>{t.footer.address.nip}</li>
+        </ul>
+        <ul class="flex flex-col gap-1">
+          <li class="font-bold">
+            {t.footer.address.phoneNumberTitle}{' '}
+            <a
+              class="font-normal text-white/80 transition-colors hover:text-white hover:underline"
+              href={`tel:${t.footer.address.phoneNumberPrimary}`}
+            >
+              {t.footer.address.phoneNumberPrimary}
+            </a>
+            {' '}|{' '}
+            <a
+              class="font-normal text-white/80 transition-colors hover:text-white hover:underline"
+              href={`tel:${t.footer.address.phoneNumberSecondary}`}
+            >
+              {t.footer.address.phoneNumberSecondary}
+            </a>
+          </li>
+          <li class="font-bold">
+            {t.footer.address.emailTitle}
+            {' '}
+            <a
+              class="font-normal text-white/80 transition-colors hover:text-white hover:underline"
+              href={`mailto:${t.footer.address.email}`}
+            >
+              {t.footer.address.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Container>
+</footer>

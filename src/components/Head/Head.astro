@@ -1,0 +1,36 @@
+---
+import SEO from '@/components/SEO/SEO.astro';
+import type { Locale } from '@/i18n/locales/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  image?: string;
+}
+
+const { title, description, locale, image } = Astro.props;
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- SEO -->
+  <SEO title={title} description={description} locale={locale} />
+
+  <script is:inline>
+    (function () {
+      const stored = localStorage.getItem('theme');
+      const theme = stored || 'system';
+      const prefersDark = window.matchMedia(
+        '(prefers-color-scheme: dark)',
+      ).matches;
+      const isDark = theme === 'dark' || (theme === 'system' && prefersDark);
+      document.documentElement.classList.toggle('dark', isDark);
+    })();
+  </script>
+</head>

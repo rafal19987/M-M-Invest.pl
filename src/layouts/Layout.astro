@@ -1,27 +1,52 @@
 ---
-import '../styles/global.css' 
+import Head from '@/components/Head/Head.astro';
+import Header from '@/components/Header/Header.astro';
+import Footer from '@components/Footer/Footer.astro';
+import '../styles/global.css';
+import { getTranslations, PL_LOCALE, type Locale } from '@/i18n/locales/utils';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb.astro';
+import Container from '@components/Container.astro';
+
+interface Props {
+  image?: string;
+  breadcrumbLabel?: string;
+  alternateUrls?: Partial<Record<Locale, string>>;
+}
+
+const { image, breadcrumbLabel, alternateUrls } = Astro.props;
+
+const locale = (Astro.currentLocale ?? PL_LOCALE) as Locale;
+
+const t = getTranslations(locale);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang={locale}>
+  <Head
+    title={t.title}
+    description={t.description}
+    locale={locale}
+    image={image}
+  />
+  <body
+    class="bg-[var(--color-bg)] text-[var(--color-ink)] transition-colors duration-300"
+  >
+    <Header locale={locale} alternateUrls={alternateUrls} />
+    <main class="min-h-screen w-full">
+      <Container>
+        <Breadcrumb locale={locale} lastLabel={breadcrumbLabel} />
+      </Container>
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
