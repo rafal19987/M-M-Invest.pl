@@ -84,6 +84,39 @@ export const pl = {
       button: 'Napisz do nas',
     },
   },
+  contactPage: {
+    eyebrow: 'Kontakt',
+    title: 'Porozmawiajmy o Twojej inwestycji',
+    subtitle:
+      'Wypełnij formularz, a nasz zespół skontaktuje się z Tobą w ciągu 24 godzin.',
+    infoTitle: 'Dane kontaktowe',
+    form: {
+      name: 'Imię i nazwisko',
+      email: 'Adres e-mail',
+      phone: 'Numer telefonu (opcjonalnie)',
+      message: 'Wiadomość',
+      consent:
+        'Akceptuję politykę prywatności i wyrażam zgodę na przetwarzanie danych osobowych w celu odpowiedzi na zapytanie.',
+      submit: 'Wyślij wiadomość',
+      submitting: 'Wysyłanie...',
+      success: 'Dziękujemy za wiadomość! Wkrótce się z Tobą skontaktujemy.',
+    },
+    errors: {
+      nameRequired: 'Podaj imię i nazwisko',
+      emailRequired: 'Podaj adres e-mail',
+      emailInvalid: 'Podaj poprawny adres e-mail',
+      messageRequired: 'Wiadomość nie może być pusta',
+      messageTooShort: 'Wiadomość powinna mieć co najmniej 10 znaków',
+      consentRequired: 'Zgoda jest wymagana',
+      phoneInvalid: 'Podaj poprawny numer telefonu (9 cyfr)',
+    },
+    placeholders: {
+      name: 'Jan Kowalski',
+      email: 'jan.kowalski@example.com',
+      phone: '123 456 789',
+      message: 'Opisz w kilku zdaniach czego dotyczy Twoje zapytanie...',
+    },
+  },
   footer: {
     openHours: {
       title: 'Godziny otwarcia:',

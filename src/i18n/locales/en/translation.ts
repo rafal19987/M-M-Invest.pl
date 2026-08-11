@@ -85,6 +85,39 @@ export const en = {
       button: 'Contact us',
     },
   },
+  contactPage: {
+    eyebrow: 'Contact',
+    title: "Let's talk about your investment",
+    subtitle:
+      'Fill out the form and our team will get back to you within 24 hours.',
+    infoTitle: 'Contact details',
+    form: {
+      name: 'Full name',
+      email: 'Email address',
+      phone: 'Phone number (optional)',
+      message: 'Message',
+      consent:
+        'I accept the privacy policy and consent to the processing of my personal data in order to respond to my inquiry.',
+      submit: 'Send message',
+      submitting: 'Sending...',
+      success: "Thanks for your message! We'll be in touch soon.",
+    },
+    errors: {
+      nameRequired: 'Please enter your full name',
+      emailRequired: 'Please enter your email address',
+      emailInvalid: 'Please enter a valid email address',
+      messageRequired: 'Message cannot be empty',
+      messageTooShort: 'Message should be at least 10 characters',
+      consentRequired: 'Consent is required',
+      phoneInvalid: 'Please enter a valid phone number (9 digits)',
+    },
+    placeholders: {
+      name: 'John Smith',
+      email: 'john.smith@example.com',
+      phone: '123 456 789',
+      message: 'Describe in a few sentences what your inquiry is about...',
+    },
+  },
   footer: {
     openHours: {
       title: 'Open hours:',

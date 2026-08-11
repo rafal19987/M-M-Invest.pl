@@ -1,0 +1,441 @@
+---
+import { getTranslations, type Locale } from '@/i18n/locales/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const addr = t.footer.address;
+---
+
+<section class="py-16 sm:py-24">
+  <div class="mx-auto max-w-7xl px-5">
+    <p
+      class="font-mono text-xs tracking-[0.2em] text-[var(--color-accent)] uppercase"
+    >
+      {t.contactPage.eyebrow}
+    </p>
+    <h1
+      class="mt-3 max-w-2xl font-serif text-4xl font-medium text-[var(--color-ink)] sm:text-5xl"
+    >
+      {t.contactPage.title}
+    </h1>
+    <p class="mt-4 max-w-xl text-[var(--color-muted)]">
+      {t.contactPage.subtitle}
+    </p>
+
+    <div class="mt-14 grid gap-12 lg:grid-cols-[360px_1fr]">
+      <!-- INFO -->
+      <div class="flex flex-col gap-6">
+        <div
+          class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
+        >
+          <h2 class="font-medium text-[var(--color-ink)]">
+            {t.contactPage.infoTitle}
+          </h2>
+
+          <dl class="mt-5 flex flex-col gap-4 text-sm">
+            <div>
+              <dt class="text-[var(--color-muted)]">{addr.name}</dt>
+              <dd class="mt-1 text-[var(--color-ink)]">
+                {addr.city}
+                {addr.buildingNumber}<br />
+                {addr.zipCode}
+                {addr.postCity}
+              </dd>
+            </div>
+
+            <div>
+              <dt class="text-[var(--color-muted)]">{addr.phoneNumberTitle}</dt>
+              <dd class="mt-1">
+                <a
+                  href={`tel:${addr.phoneNumberPrimary}`}
+                  class="text-[var(--color-brand)] hover:underline"
+                >
+                  {addr.phoneNumberPrimary}
+                </a>
+                {' / '}
+                <a
+                  href={`tel:${addr.phoneNumberSecondary}`}
+                  class="text-[var(--color-brand)] hover:underline"
+                >
+                  {addr.phoneNumberSecondary}
+                </a>
+              </dd>
+            </div>
+
+            <div>
+              <dt class="text-[var(--color-muted)]">{addr.emailTitle}</dt>
+              <dd class="mt-1">
+                <a
+                  href={`mailto:${addr.email}`}
+                  class="text-[var(--color-brand)] hover:underline"
+                >
+                  {addr.email}
+                </a>
+              </dd>
+            </div>
+
+            <div>
+              <dt class="text-[var(--color-muted)]">
+                {t.footer.openHours.title}
+              </dt>
+              <dd class="mt-1 text-[var(--color-ink)]">
+                {t.footer.openHours.monFri}<br />
+                {t.footer.openHours.saturday}<br />
+                {t.footer.openHours.sunday}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <form id="contact-form" novalidate class="flex flex-col">
+        <div>
+          <label
+            for="name"
+            class="label-required mb-1.5 block text-sm font-medium text-[var(--color-ink)]"
+          >
+            {t.contactPage.form.name}
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder={t.contactPage.placeholders.name}
+            class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-[var(--color-ink)] transition-colors outline-none focus:border-[var(--color-brand)]"
+          />
+          <p
+            data-error-for="name"
+            class="invisible mt-1.5 min-h-5 text-[10px] text-red-500"
+          >
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label
+              for="email"
+              class="label-required mb-1.5 block text-sm font-medium text-[var(--color-ink)]"
+            >
+              {t.contactPage.form.email}
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder={t.contactPage.placeholders.email}
+              class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-[var(--color-ink)] transition-colors outline-none focus:border-[var(--color-brand)]"
+            />
+            <p
+              data-error-for="email"
+              class="invisible mt-1.5 min-h-5 text-[10px] text-red-500"
+            >
+            </p>
+          </div>
+
+          <div>
+            <label
+              for="phone"
+              class="mb-1.5 block text-sm font-medium text-[var(--color-ink)]"
+            >
+              {t.contactPage.form.phone}
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              inputmode="numeric"
+              placeholder={t.contactPage.placeholders.phone}
+              maxlength="11"
+              class="w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-[var(--color-ink)] transition-colors outline-none focus:border-[var(--color-brand)]"
+            />
+            <p
+              data-error-for="phone"
+              class="invisible mt-1.5 min-h-5 text-[10px] text-red-500"
+            >
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="message"
+            class="label-required mb-1.5 block text-sm font-medium text-[var(--color-ink)]"
+          >
+            {t.contactPage.form.message}
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            placeholder={t.contactPage.placeholders.message}
+            class="w-full resize-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2.5 text-[var(--color-ink)] transition-colors outline-none focus:border-[var(--color-brand)]"
+          ></textarea>
+          <p
+            data-error-for="message"
+            class="invisible mt-1.5 min-h-5 text-[10px] text-red-500"
+          >
+          </p>
+        </div>
+
+        <div>
+          <label
+            class="flex items-start gap-2.5 text-sm text-[var(--color-muted)]"
+          >
+            <span class="checkbox-wrapper relative mt-0.5 inline-flex">
+              <input
+                type="checkbox"
+                id="consent"
+                name="consent"
+                required
+                class="sr-only"
+              />
+              <span
+                aria-hidden="true"
+                class="checkbox-visual flex size-4 shrink-0 items-center justify-center rounded border-2 border-[var(--color-border)] bg-[var(--color-surface)] transition-colors"
+              >
+                <svg
+                  class="checkbox-check size-3 text-white"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </span>
+            </span>
+            <span>{t.contactPage.form.consent}</span>
+          </label>
+          <p
+            data-error-for="consent"
+            class="invisible mt-1.5 min-h-5 text-[10px] text-red-500"
+          >
+          </p>
+        </div>
+
+        <div class="mt-2 flex items-center gap-4">
+          <button
+            type="submit"
+            class="rounded-full bg-[var(--color-brand-surface)] px-6 py-3 text-sm font-medium text-white transition-transform hover:scale-105 hover:cursor-pointer disabled:pointer-events-none disabled:opacity-60"
+          >
+            <span data-submit-idle>{t.contactPage.form.submit}</span>
+            <span data-submit-loading class="hidden"
+              >{t.contactPage.form.submitting}</span
+            >
+          </button>
+
+          <p
+            data-form-success
+            class="hidden text-sm font-medium text-green-600"
+          >
+            {t.contactPage.form.success}
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .label-required::after {
+    content: ' *';
+    color: #ef4444; /* red-500 */
+  }
+
+  input[aria-invalid='true'],
+  textarea[aria-invalid='true'] {
+    border-color: #ef4444;
+  }
+
+  input[aria-invalid='true']::placeholder,
+  textarea[aria-invalid='true']::placeholder {
+    color: #ef4444;
+    opacity: 1;
+  }
+
+  .checkbox-check {
+    display: none;
+  }
+
+  input#consent:checked ~ .checkbox-visual {
+    border-color: var(--color-brand);
+    background-color: var(--color-brand);
+  }
+
+  input#consent:checked ~ .checkbox-visual .checkbox-check {
+    display: block;
+  }
+
+  input#consent:focus-visible ~ .checkbox-visual {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  input#consent[aria-invalid='true'] + .checkbox-visual {
+    border-color: #ef4444;
+  }
+</style>
+
+<script
+  define:vars={{
+    errors: {
+      nameRequired: t.contactPage.errors.nameRequired,
+      emailRequired: t.contactPage.errors.emailRequired,
+      emailInvalid: t.contactPage.errors.emailInvalid,
+      phoneInvalid: t.contactPage.errors.phoneInvalid,
+      messageRequired: t.contactPage.errors.messageRequired,
+      messageTooShort: t.contactPage.errors.messageTooShort,
+      consentRequired: t.contactPage.errors.consentRequired,
+    },
+  }}
+>
+  const form = document.getElementById('contact-form');
+  const submitButton = form?.querySelector('button[type="submit"]');
+  const idleLabel = form?.querySelector('[data-submit-idle]');
+  const loadingLabel = form?.querySelector('[data-submit-loading]');
+  const successMessage = form?.querySelector('[data-form-success]');
+  const phoneInput = form?.querySelector('#phone');
+
+  function formatPhoneNumber(value) {
+    const digitsOnly = value.replace(/\D/g, '').slice(0, 9);
+    const groups = digitsOnly.match(/.{1,3}/g) || [];
+    return groups.join(' ');
+  }
+
+  phoneInput?.addEventListener('input', (event) => {
+    const input = event.target;
+    const cursorWasAtEnd = input.selectionStart === input.value.length;
+
+    input.value = formatPhoneNumber(input.value);
+
+    if (cursorWasAtEnd) {
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  });
+
+  function setError(field, message) {
+    const errorEl = form?.querySelector(`[data-error-for="${field}"]`);
+    const input = form?.elements.namedItem(field);
+
+    if (message) {
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.remove('invisible');
+      }
+      if (input) input.setAttribute('aria-invalid', 'true');
+    } else {
+      if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.add('invisible');
+      }
+      if (input) input.removeAttribute('aria-invalid');
+    }
+  }
+
+  function validate() {
+    const data = new FormData(form);
+    const name = (data.get('name') || '').toString().trim();
+    const email = (data.get('email') || '').toString().trim();
+    const phone = (data.get('phone') || '').toString().trim();
+    const message = (data.get('message') || '').toString().trim();
+    const consent = data.get('consent');
+
+    let firstInvalid = null;
+    let isValid = true;
+
+    if (!name) {
+      setError('name', errors.nameRequired);
+      isValid = false;
+      firstInvalid = firstInvalid || 'name';
+    } else {
+      setError('name', null);
+    }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setError('email', errors.emailRequired);
+      isValid = false;
+      firstInvalid = firstInvalid || 'email';
+    } else if (!emailPattern.test(email)) {
+      setError('email', errors.emailInvalid);
+      isValid = false;
+      firstInvalid = firstInvalid || 'email';
+    } else {
+      setError('email', null);
+    }
+
+    const phoneDigits = phone.replace(/\s/g, '');
+    if (phoneDigits && phoneDigits.length !== 9) {
+      setError('phone', errors.phoneInvalid);
+      isValid = false;
+      firstInvalid = firstInvalid || 'phone';
+    } else {
+      setError('phone', null);
+    }
+
+    if (!message) {
+      setError('message', errors.messageRequired);
+      isValid = false;
+      firstInvalid = firstInvalid || 'message';
+    } else if (message.length < 10) {
+      setError('message', errors.messageTooShort);
+      isValid = false;
+      firstInvalid = firstInvalid || 'message';
+    } else {
+      setError('message', null);
+    }
+
+    if (!consent) {
+      setError('consent', errors.consentRequired);
+      isValid = false;
+      firstInvalid = firstInvalid || 'consent';
+    } else {
+      setError('consent', null);
+    }
+
+    return { isValid, firstInvalid };
+  }
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    successMessage?.classList.add('hidden');
+
+    const { isValid, firstInvalid } = validate();
+
+    if (!isValid) {
+      const el = form.elements.namedItem(firstInvalid);
+      if (el instanceof HTMLElement) el.focus();
+      return;
+    }
+
+    // TODO: Real email sending mechanism
+    submitButton?.setAttribute('disabled', 'true');
+    idleLabel?.classList.add('hidden');
+    loadingLabel?.classList.remove('hidden');
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
+    submitButton?.removeAttribute('disabled');
+    idleLabel?.classList.remove('hidden');
+    loadingLabel?.classList.add('hidden');
+    successMessage?.classList.remove('hidden');
+    form.reset();
+  });
+
+  form?.querySelectorAll('input, textarea').forEach((el) => {
+    el.addEventListener('input', () => {
+      const name = el.getAttribute('name');
+      if (name) setError(name, null);
+    });
+  });
+</script>
