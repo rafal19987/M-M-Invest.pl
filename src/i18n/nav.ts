@@ -29,3 +29,17 @@ export function getNavLinks(
     },
   ];
 }
+
+export function isActiveLink(currentPath: string, linkHref: string): boolean {
+  const normalizedCurrent = currentPath.endsWith('/')
+    ? currentPath
+    : `${currentPath}/`;
+  const normalizedHref = linkHref.endsWith('/') ? linkHref : `${linkHref}/`;
+  const isHomeLink = normalizedHref === '/' || normalizedHref === '/en/';
+
+  if (isHomeLink) {
+    return normalizedCurrent === normalizedHref;
+  }
+
+  return normalizedCurrent.startsWith(normalizedHref);
+}
