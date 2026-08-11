@@ -5,6 +5,7 @@ import Container from '@components/Container.astro';
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
 import Hamburger from '@components/Hamburger/Hamburger.astro';
 import { getNavLinks } from '@/i18n/nav.ts';
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher.astro';
 
 interface Props {
   locale: Locale;
@@ -24,7 +25,7 @@ const navLinks = getNavLinks(locale, t);
         >MM Invest</a
       >
 
-      <div class="hidden items-center gap-6 text-white lg:flex">
+      <div class="hidden items-center gap-4 text-white lg:flex">
         {
           navLinks.map(({ href, label }) => (
             <a class="hover:cursor-pointer hover:underline" href={href}>
@@ -33,6 +34,7 @@ const navLinks = getNavLinks(locale, t);
           ))
         }
         <LanguageSwitcher locale={locale} alternateUrls={alternateUrls} />
+        <ThemeSwitcher locale={locale} />
       </div>
       <Hamburger locale={locale} alternateUrls={alternateUrls} />
     </nav>

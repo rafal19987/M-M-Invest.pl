@@ -1,2 +1,23 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+    --color-bg: #f7f6f1;
+    --color-surface: #ffffff;
+    --color-ink: #1a1d24;
+    --color-muted: #6b7280;
+    --color-border: #e4e1d9;
+    --color-brand: #26519e;
+    --color-accent: #b8912f;
+}
+
+.dark {
+    --color-bg: #14161b;
+    --color-surface: #1d2027;
+    --color-ink: #f2f1ed;
+    --color-muted: #9ca3af;
+    --color-border: #2a2d34;
+    --color-brand: #6e93d6;
+    --color-accent: #d4b15a;
+}

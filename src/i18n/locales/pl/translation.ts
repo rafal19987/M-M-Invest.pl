@@ -12,6 +12,12 @@ export const pl = {
     closeMenu: 'Zamknij menu',
     breadcrumbLabel: 'Ścieżka nawigacji',
   },
+  theme: {
+    label: 'Motyw',
+    light: 'Jasny',
+    dark: 'Ciemny',
+    system: 'Systemowy',
+  },
   blog: {
     title: 'Blog',
     subtitle: 'Analizy, poradniki i aktualności ze świata inwestycji',

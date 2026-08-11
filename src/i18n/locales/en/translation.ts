@@ -12,6 +12,12 @@ export const en = {
     closeMenu: 'Close menu',
     breadcrumbLabel: 'Breadcrumb',
   },
+  theme: {
+    label: 'Theme',
+    light: 'Light',
+    dark: 'Dark',
+    system: 'System',
+  },
   blog: {
     title: 'Blog',
     subtitle:
