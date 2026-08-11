@@ -18,7 +18,7 @@ const t = getTranslations(locale);
 const navLinks = getNavLinks(locale, t);
 ---
 
-<header class="w-full bg-[#26519e] dark:bg-[#1b3a73]">
+<header class="w-full bg-[var(--color-brand-surface)]">
   <Container>
     <nav class="flex h-18 w-full items-center justify-between">
       <a class="text-white" href={locale === PL_LOCALE ? '/' : '/en/'}

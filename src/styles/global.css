@@ -9,6 +9,7 @@
     --color-muted: #6b7280;
     --color-border: #e4e1d9;
     --color-brand: #26519e;
+    --color-brand-surface: #26519e;
     --color-accent: #b8912f;
 }
 
@@ -19,5 +20,6 @@
     --color-muted: #9ca3af;
     --color-border: #2a2d34;
     --color-brand: #6e93d6;
+    --color-brand-surface: #1b3a73;
     --color-accent: #d4b15a;
 }
