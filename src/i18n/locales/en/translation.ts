@@ -27,6 +27,64 @@ export const en = {
     backToList: 'Back to blog',
     emptyState: 'No articles yet. Check back soon.',
   },
+  home: {
+    hero: {
+      eyebrow: 'MM Invest / Developer',
+      title: 'We build places worth living in',
+      subtitle:
+        "For over a decade we've delivered residential developments that combine thoughtful locations, high energy efficiency, and solid construction.",
+      ctaPrimary: 'View offer',
+      ctaSecondary: 'Get in touch',
+    },
+    stats: {
+      years: 'years of experience',
+      projects: 'completed projects',
+      sqm: 'm² built',
+      clients: 'satisfied clients',
+    },
+    about: {
+      eyebrow: 'About us',
+      title: 'Quality you can see in every detail',
+      text: "MM Invest is a team of architects, engineers, and specialists who treat every project as a place they'd want to live in themselves. We focus on thoughtful locations, high energy standards, and transparent collaboration at every stage.",
+      cta: 'Learn our story',
+    },
+    usp: {
+      title: 'Why invest with us',
+      items: [
+        {
+          title: 'Proven locations',
+          text: 'Every project starts with a thorough analysis of transport links and surroundings.',
+        },
+        {
+          title: 'Energy efficiency',
+          text: 'Heat pumps and solar panels as standard, not a premium option.',
+        },
+        {
+          title: 'Flexible layouts',
+          text: 'Apartments designed to easily adapt to changing needs.',
+        },
+        {
+          title: 'Transparency',
+          text: 'Clear terms of collaboration and constant contact at every stage.',
+        },
+      ],
+    },
+    offer: {
+      title: 'Our offer',
+      subtitle: 'Current projects and developments',
+      cta: 'View all',
+    },
+    blog: {
+      title: 'From the world of investing',
+      subtitle: 'Latest posts from our blog',
+      cta: 'All articles',
+    },
+    cta: {
+      title: 'Have questions about investing?',
+      subtitle: "Get in touch — we'll respond within 24 hours.",
+      button: 'Contact us',
+    },
+  },
   footer: {
     openHours: {
       title: 'Open hours:',

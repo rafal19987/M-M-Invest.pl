@@ -26,6 +26,64 @@ export const pl = {
     backToList: 'Wróć do bloga',
     emptyState: 'Brak artykułów w tej chwili. Zajrzyj tu wkrótce.',
   },
+  home: {
+    hero: {
+      eyebrow: 'MM Invest / Deweloper',
+      title: 'Budujemy miejsca, w których chce się mieszkać',
+      subtitle:
+        'Od ponad dekady realizujemy inwestycje mieszkaniowe łączące przemyślaną lokalizację, wysoką efektywność energetyczną i solidne wykonanie.',
+      ctaPrimary: 'Zobacz ofertę',
+      ctaSecondary: 'Skontaktuj się',
+    },
+    stats: {
+      years: 'lat doświadczenia',
+      projects: 'zrealizowanych inwestycji',
+      sqm: 'm² wybudowanej powierzchni',
+      clients: 'zadowolonych klientów',
+    },
+    about: {
+      eyebrow: 'O nas',
+      title: 'Solidność, którą widać w każdym detalu',
+      text: 'MM Invest to zespół architektów, inżynierów i specjalistów, którzy każdą inwestycję traktują jak miejsce, w którym sami chcieliby zamieszkać. Stawiamy na przemyślane lokalizacje, wysokie standardy energetyczne i transparentną współpracę na każdym etapie.',
+      cta: 'Poznaj naszą historię',
+    },
+    usp: {
+      title: 'Dlaczego warto inwestować z nami',
+      items: [
+        {
+          title: 'Sprawdzone lokalizacje',
+          text: 'Każdą inwestycję poprzedza szczegółowa analiza dostępności komunikacyjnej i otoczenia.',
+        },
+        {
+          title: 'Efektywność energetyczna',
+          text: 'Pompy ciepła i fotowoltaika jako standard, nie opcja premium.',
+        },
+        {
+          title: 'Elastyczne układy',
+          text: 'Mieszkania projektowane tak, by łatwo dopasować je do zmieniających się potrzeb.',
+        },
+        {
+          title: 'Transparentność',
+          text: 'Jasne zasady współpracy i stały kontakt na każdym etapie realizacji.',
+        },
+      ],
+    },
+    offer: {
+      title: 'Nasza oferta',
+      subtitle: 'Aktualne inwestycje i realizacje',
+      cta: 'Zobacz wszystkie',
+    },
+    blog: {
+      title: 'Ze świata inwestycji',
+      subtitle: 'Najnowsze wpisy na naszym blogu',
+      cta: 'Wszystkie artykuły',
+    },
+    cta: {
+      title: 'Masz pytania dotyczące inwestycji?',
+      subtitle: 'Skontaktuj się z nami — odpowiemy w ciągu 24 godzin.',
+      button: 'Napisz do nas',
+    },
+  },
   footer: {
     openHours: {
       title: 'Godziny otwarcia:',
