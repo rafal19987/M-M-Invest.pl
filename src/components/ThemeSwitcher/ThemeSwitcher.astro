@@ -105,6 +105,7 @@ const options = [
   }
 
   function init() {
+    const details = document.querySelector('[data-theme-switcher]');
     const stored = localStorage.getItem('theme') || 'system';
     updateActiveOption(stored);
 
@@ -114,8 +115,6 @@ const options = [
         localStorage.setItem('theme', value);
         applyTheme(value);
         updateActiveOption(value);
-
-        const details = btn.closest('[data-theme-switcher]');
         if (details instanceof HTMLDetailsElement) details.open = false;
       });
     });
@@ -126,6 +125,14 @@ const options = [
         const current = localStorage.getItem('theme') || 'system';
         if (current === 'system') applyTheme('system');
       });
+
+    document.addEventListener('click', (event) => {
+      if (!(details instanceof HTMLDetailsElement) || !details.open) return;
+      const target = event.target as Node;
+      if (!details.contains(target)) {
+        details.open = false;
+      }
+    });
   }
 
   document.addEventListener('DOMContentLoaded', init);

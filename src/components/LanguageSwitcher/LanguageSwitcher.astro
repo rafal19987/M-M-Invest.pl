@@ -39,7 +39,7 @@ function resolveUrlForLocale(targetLocale: Locale): string {
 }
 ---
 
-<details class="group relative">
+<details class="group relative" data-language-switcher>
   <summary
     class="flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-sm text-white transition-colors hover:bg-white/10"
   >
@@ -116,3 +116,16 @@ function resolveUrlForLocale(targetLocale: Locale): string {
     }
   }
 </style>
+
+<script>
+  const details = document.querySelector('[data-language-switcher]');
+
+  document.addEventListener('click', (event) => {
+    if (!(details instanceof HTMLDetailsElement) || !details.open) return;
+
+    const target = event.target as Node;
+    if (!details.contains(target)) {
+      details.open = false;
+    }
+  });
+</script>
