@@ -1,0 +1,159 @@
+---
+import { render } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getTranslations, type Locale } from '@/i18n/locales/utils';
+
+interface Props {
+  locale: Locale;
+  offer: any; // CollectionEntry<'offers'>
+}
+
+const { locale, offer } = Astro.props;
+const { Content } = await render(offer);
+const t = getTranslations(locale);
+
+const numberFormatter = new Intl.NumberFormat(
+  locale === 'pl' ? 'pl-PL' : 'en-GB',
+);
+const listHref = locale === 'en' ? '/en/offer/' : '/oferta/';
+const contactHref = locale === 'en' ? '/en/contact/' : '/kontakt/';
+
+const statusStyles: Record<string, string> = {
+  sale: 'bg-green-100 text-green-800',
+  planned: 'bg-amber-100 text-amber-800',
+  sold: 'bg-gray-200 text-gray-600',
+};
+---
+
+<article>
+  <div>
+    <div class="mt-6 flex flex-wrap items-center gap-3">
+      <span
+        class={`rounded-full px-3 py-1 text-xs font-medium ${statusStyles[offer.data.status]}`}
+      >
+        {t.offerPage.status[offer.data.status]}
+      </span>
+      <span class="text-sm text-[var(--color-muted)]">{offer.data.city}</span>
+    </div>
+
+    <h1
+      class="mt-3 font-serif text-4xl font-medium text-[var(--color-ink)] md:text-5xl"
+    >
+      {offer.data.title}
+    </h1>
+
+    <div class="relative mt-10 aspect-[16/9] overflow-hidden rounded-2xl">
+      <Image
+        src={offer.data.coverImage}
+        alt={offer.data.coverImageAlt ?? ''}
+        class="h-full w-full object-cover"
+        widths={[600, 1000, 1600]}
+        sizes="(max-width: 768px) 100vw, 1000px"
+      />
+    </div>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
+      <div
+        class="prose prose-neutral dark:prose-invert prose-headings:font-serif max-w-none"
+      >
+        <Content />
+      </div>
+
+      <aside
+        class="h-fit rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
+      >
+        <h2 class="font-medium text-[var(--color-ink)]">
+          {t.offerPage.detail.overview}
+        </h2>
+
+        <dl class="mt-5 flex flex-col gap-4 text-sm">
+          {
+            offer.data.address && (
+              <div>
+                <dt class="text-[var(--color-muted)]">
+                  {t.offerPage.detail.location}
+                </dt>
+                <dd class="mt-1 text-[var(--color-ink)]">
+                  {offer.data.address}, {offer.data.city}
+                </dd>
+              </div>
+            )
+          }
+
+          <div>
+            <dt class="text-[var(--color-muted)]">
+              {t.offerPage.detail.apartmentsCount}
+            </dt>
+            <dd class="mt-1 text-[var(--color-ink)]">
+              {offer.data.apartmentsCount}
+            </dd>
+          </div>
+
+          <div>
+            <dt class="text-[var(--color-muted)]">
+              {t.offerPage.detail.areaRange}
+            </dt>
+            <dd class="mt-1 text-[var(--color-ink)]">
+              {offer.data.areaMin}–{offer.data.areaMax} m²
+            </dd>
+          </div>
+
+          {
+            offer.data.completionDate && (
+              <div>
+                <dt class="text-[var(--color-muted)]">
+                  {t.offerPage.detail.completionDate}
+                </dt>
+                <dd class="mt-1 text-[var(--color-ink)]">
+                  {offer.data.completionDate}
+                </dd>
+              </div>
+            )
+          }
+
+          {
+            offer.data.priceFrom && (
+              <div>
+                <dt class="text-[var(--color-muted)]">
+                  {t.offerPage.detail.priceFrom}
+                </dt>
+                <dd class="mt-1 font-medium text-[var(--color-ink)]">
+                  {numberFormatter.format(offer.data.priceFrom)} zł
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+        <a
+          href={contactHref}
+          class="mt-6 block rounded-full bg-[var(--color-brand-surface)] px-5 py-2.5 text-center text-sm font-medium text-white transition-transform hover:scale-105"
+        >
+          {t.offerPage.detail.ctaButton}
+        </a>
+      </aside>
+    </div>
+
+    {
+      offer.data.gallery && offer.data.gallery.length > 0 && (
+        <div class="mt-16">
+          <h2 class="font-serif text-2xl font-medium text-[var(--color-ink)]">
+            {t.offerPage.detail.gallery}
+          </h2>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {offer.data.gallery.map((img) => (
+              <div class="aspect-[4/3] overflow-hidden rounded-xl">
+                <Image
+                  src={img}
+                  alt=""
+                  class="h-full w-full object-cover"
+                  widths={[400, 800]}
+                  sizes="33vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+  </div>
+</article>

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { getTranslations, EN_LOCALE, type Locale } from '@/i18n/locales/utils';
 import { getReadingTime } from '@/i18n/reading-time';
 import Container from '@/components/Container.astro';
+import Image from 'astro/components/Image.astro';
 
 interface Props {
   locale: Locale;
@@ -29,7 +30,16 @@ const latestPosts = allPosts
   .slice(0, 3)
   .map((post) => ({ ...post, readingTime: getReadingTime(post.body ?? '') }));
 
+const allOffers = await getCollection(
+  'offers',
+  ({ data }) => data.locale === locale,
+);
+const featuredOffers = allOffers
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
 const blogPrefix = locale === EN_LOCALE ? '/en/blog' : '/blog';
+const offerPrefix = locale === EN_LOCALE ? '/en/offer' : '/oferta';
 const offerHref = locale === EN_LOCALE ? '/en/offer/' : '/oferta/';
 const contactHref = locale === EN_LOCALE ? '/en/contact/' : '/kontakt/';
 const aboutHref = locale === EN_LOCALE ? '/en/about-us/' : '/o-nas/';
@@ -42,6 +52,12 @@ const dateFormatter = new Intl.DateTimeFormat(
     year: 'numeric',
   },
 );
+
+const statusStyles: Record<string, string> = {
+  sale: 'bg-green-100 text-green-800',
+  planned: 'bg-amber-100 text-amber-800',
+  sold: 'bg-gray-200 text-gray-600',
+};
 ---
 
 <!-- HERO -->
@@ -179,51 +195,69 @@ const dateFormatter = new Intl.DateTimeFormat(
 </section>
 
 <!-- OFFER TEASER -->
-<section class="py-20 sm:py-28">
-  <Container>
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <p
-          class="text-xs font-[var(--font-mono)] tracking-[0.2em] text-[var(--color-accent)] uppercase"
-        >
-          {t.home.offer.subtitle}
-        </p>
-        <h2
-          class="mt-3 text-3xl font-[var(--font-serif)] font-medium text-[var(--color-ink)] sm:text-4xl"
-        >
-          {t.home.offer.title}
-        </h2>
-      </div>
-      <a
-        href={offerHref}
-        class="text-sm font-medium text-[var(--color-brand)] hover:underline"
-      >
-        {t.home.offer.cta}
-      </a>
-    </div>
-
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        [1, 2, 3].map((i) => (
+{
+  featuredOffers.length > 0 && (
+    <section class="py-20 sm:py-28">
+      <Container>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="font-mono text-xs tracking-[0.2em] text-[var(--color-accent)] uppercase">
+              {t.home.offer.subtitle}
+            </p>
+            <h2 class="mt-3 font-serif text-3xl font-medium text-[var(--color-ink)] sm:text-4xl">
+              {t.home.offer.title}
+            </h2>
+          </div>
           <a
             href={offerHref}
-            class="group block overflow-hidden rounded-2xl ring-1 ring-[var(--color-border)]"
+            class="text-sm font-medium text-[var(--color-brand)] hover:underline"
           >
-            <div class="aspect-[4/3] bg-[var(--color-bg)] transition-transform duration-500 group-hover:scale-105" />
-            <div class="p-5">
-              <h3 class="font-medium text-[var(--color-ink)]">
-                Inwestycja {i}
-              </h3>
-              <p class="mt-1 text-sm text-[var(--color-muted)]">
-                Krótki opis realizacji.
-              </p>
-            </div>
+            {t.home.offer.cta}
           </a>
-        ))
-      }
-    </div>
-  </Container>
-</section>
+        </div>
+
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredOffers.map((offer) => (
+            <a
+              href={`${offerPrefix}/${offer.data.slug}/`}
+              class="group block overflow-hidden rounded-2xl ring-1 ring-[var(--color-border)]"
+            >
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={offer.data.coverImage}
+                  alt={offer.data.coverImageAlt ?? ''}
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  widths={[400, 800]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <span
+                  class={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-medium ${statusStyles[offer.data.status]}`}
+                >
+                  {
+                    t.offerPage.status[
+                      offer.data.status as keyof typeof t.offerPage.status
+                    ]
+                  }
+                </span>
+              </div>
+              <div class="p-5">
+                <p class="font-mono text-xs text-[var(--color-muted)]">
+                  {offer.data.city}
+                </p>
+                <h3 class="mt-1 font-medium text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-brand)]">
+                  {offer.data.title}
+                </h3>
+                <p class="mt-1 text-sm text-[var(--color-muted)]">
+                  {offer.data.areaMin}–{offer.data.areaMax} m²
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}
 
 <!-- BLOG TEASER -->
 {

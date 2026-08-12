@@ -1,3 +1,5 @@
+import type { OfferStatus } from '@/content.config.ts';
+
 export const en = {
   title: 'Website',
   description: 'Description',
@@ -181,6 +183,35 @@ export const en = {
       title: 'Want to get to know us better?',
       subtitle: "Get in touch — we'd love to tell you more about our projects.",
       button: 'Get in touch',
+    },
+  },
+  offerPage: {
+    eyebrow: 'Offer',
+    title: 'Our developments',
+    subtitle: "Browse MM Invest's current and upcoming projects.",
+    emptyState: 'No offers available right now.',
+    status: {
+      sale: 'For sale',
+      planned: 'Coming soon',
+      sold: 'Sold out',
+    } satisfies Record<OfferStatus, string>,
+    card: {
+      apartments: 'apartments',
+      area: 'm²',
+      priceFrom: 'from',
+      viewDetails: 'View details',
+    },
+    detail: {
+      backToList: 'Back to offer',
+      overview: 'Overview',
+      location: 'Location',
+      apartmentsCount: 'Number of apartments',
+      areaRange: 'Area',
+      completionDate: 'Completion date',
+      priceFrom: 'Price from',
+      gallery: 'Gallery',
+      ctaTitle: 'Interested in this development?',
+      ctaButton: 'Ask for details',
     },
   },
   footer: {

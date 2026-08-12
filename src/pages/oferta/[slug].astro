@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@layouts/Layout.astro';
+import OfferDetailPage from '@components/pages/OfferDetailPage.astro';
+import Container from '@components/Container.astro';
+import { EN_LOCALE, PL_LOCALE } from '@/i18n/locales/utils.ts';
+
+const locale = 'pl' as const;
+
+export async function getStaticPaths() {
+  const offers = await getCollection(
+    'offers',
+    ({ data }) => data.locale === 'pl',
+  );
+  return offers.map((offer) => ({
+    params: { slug: offer.data.slug },
+    props: { offer },
+  }));
+}
+
+const { offer } = Astro.props;
+
+const allOffers = await getCollection('offers');
+const alternateOffer = allOffers.find(
+  (o) =>
+    o.data.translationId === offer.data.translationId &&
+    o.data.locale !== locale,
+);
+
+const alternateUrls = alternateOffer
+  ? {
+      [PL_LOCALE]: `/oferta/${offer.data.slug}/`,
+      [EN_LOCALE]: `/en/offer/${alternateOffer.data.slug}/`,
+    }
+  : undefined;
+---
+
+<Layout breadcrumbLabel={offer.data.title} alternateUrls={alternateUrls}>
+  <Container>
+    <OfferDetailPage locale={locale} offer={offer} />
+  </Container>
+</Layout>

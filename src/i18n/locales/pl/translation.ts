@@ -1,3 +1,5 @@
+import type { OfferStatus } from '@/content.config.ts';
+
 export const pl = {
   title: 'Strona internetowa',
   description: 'Description',
@@ -181,6 +183,35 @@ export const pl = {
       subtitle:
         'Zapraszamy do kontaktu — chętnie opowiemy więcej o naszych realizacjach.',
       button: 'Skontaktuj się',
+    },
+  },
+  offerPage: {
+    eyebrow: 'Oferta',
+    title: 'Nasze inwestycje',
+    subtitle: 'Sprawdź aktualne i planowane realizacje MM Invest.',
+    emptyState: 'Brak dostępnych ofert w tej chwili.',
+    status: {
+      sale: 'W sprzedaży',
+      planned: 'Wkrótce',
+      sold: 'Sprzedane',
+    } satisfies Record<OfferStatus, string>,
+    card: {
+      apartments: 'mieszkań',
+      area: 'm²',
+      priceFrom: 'od',
+      viewDetails: 'Zobacz szczegóły',
+    },
+    detail: {
+      backToList: 'Wróć do oferty',
+      overview: 'Podsumowanie',
+      location: 'Lokalizacja',
+      apartmentsCount: 'Liczba mieszkań',
+      areaRange: 'Metraż',
+      completionDate: 'Termin realizacji',
+      priceFrom: 'Cena od',
+      gallery: 'Galeria',
+      ctaTitle: 'Zainteresowała Cię ta inwestycja?',
+      ctaButton: 'Zapytaj o szczegóły',
     },
   },
   footer: {

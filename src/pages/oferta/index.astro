@@ -1,10 +1,13 @@
 ---
-import Container from '@/components/Container.astro';
 import Layout from '@layouts/Layout.astro';
+import OfferListPage from '@components/pages/OfferListPage.astro';
+import Container from '@components/Container.astro';
+
+const locale = 'pl' as const;
 ---
 
 <Layout>
   <Container>
-    <h1>Oferta</h1>
+    <OfferListPage locale={locale} />
   </Container>
 </Layout>
