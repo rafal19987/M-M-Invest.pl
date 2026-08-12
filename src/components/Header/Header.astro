@@ -2,10 +2,11 @@
 import { getTranslations, PL_LOCALE } from '@/i18n/locales/utils';
 import type { Locale } from '@/i18n/locales/utils';
 import Container from '@components/Container.astro';
-import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
+import LanguageSwitcher from '@components/LanguageSwitcher/LanguageSwitcher.astro';
 import Hamburger from '@components/Hamburger/Hamburger.astro';
 import { getNavLinks, isActiveLink } from '@/i18n/nav.ts';
-import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher.astro';
+import ThemeSwitcher from '@components/ThemeSwitcher/ThemeSwitcher.astro';
+import Logo from '@components/Logo.astro';
 
 interface Props {
   locale: Locale;
@@ -22,8 +23,12 @@ const currentPath = Astro.url.pathname;
 <header class="w-full bg-[var(--color-brand-surface)]">
   <Container>
     <nav class="flex h-18 w-full items-center justify-between">
-      <a class="text-white" href={locale === PL_LOCALE ? '/' : '/en/'}
-        >MM Invest</a
+      <a
+        class="w-fit text-white"
+        href={locale === PL_LOCALE ? '/' : '/en/'}
+        aria-label="MM Invest"
+      >
+        <Logo class="h-20 w-auto text-white" /></a
       >
 
       <div class="hidden items-center gap-4 text-white lg:flex">
@@ -55,39 +60,39 @@ const currentPath = Astro.url.pathname;
       <Hamburger locale={locale} alternateUrls={alternateUrls} />
     </nav>
   </Container>
+
+  <style>
+    .nav-link {
+      position: relative;
+      padding-bottom: 2px;
+      color: white;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1.5px;
+      width: 100%;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease-out;
+    }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+    }
+
+    .nav-link--active {
+      font-weight: 600;
+    }
+
+    .nav-link--active::after {
+      transform: scaleX(1);
+    }
+  </style>
+
+  <script></script>
 </header>
-
-<style>
-  .nav-link {
-    position: relative;
-    padding-bottom: 2px;
-    color: white;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 1.5px;
-    width: 100%;
-    background-color: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s ease-out;
-  }
-
-  .nav-link:hover::after {
-    transform: scaleX(1);
-  }
-
-  .nav-link--active {
-    font-weight: 600;
-  }
-
-  .nav-link--active::after {
-    transform: scaleX(1);
-  }
-</style>
-
-<script></script>
