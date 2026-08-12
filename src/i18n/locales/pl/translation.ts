@@ -117,6 +117,72 @@ export const pl = {
       message: 'Opisz w kilku zdaniach czego dotyczy Twoje zapytanie...',
     },
   },
+  aboutPage: {
+    eyebrow: 'O nas',
+    title: 'Budujemy z myślą o ludziach, nie tylko o metrach',
+    subtitle:
+      'MM Invest to zespół, który każdą inwestycję traktuje jak miejsce, w którym sam chciałby zamieszkać.',
+    story: {
+      eyebrow: 'Nasza historia',
+      title: 'Od małej firmy budowlanej do zaufanego dewelopera',
+      paragraph1:
+        'Zaczynaliśmy jako niewielki zespół realizujący pojedyncze projekty w regionie. Dziś, po ponad dekadzie doświadczeń, jesteśmy zespołem architektów, inżynierów i specjalistów, którzy razem zrealizowali dziesiątki inwestycji mieszkaniowych.',
+      paragraph2:
+        'To, co się nie zmieniło od pierwszego dnia, to podejście — każdy projekt traktujemy indywidualnie, słuchamy potrzeb przyszłych mieszkańców i stawiamy na jakość, która wytrzyma próbę czasu.',
+    },
+    values: {
+      title: 'Czym się kierujemy',
+      items: [
+        {
+          title: 'Solidność',
+          text: 'Materiały i wykonawstwo, które nie wymagają kompromisów kosztem trwałości.',
+        },
+        {
+          title: 'Transparentność',
+          text: 'Jasne zasady współpracy i stały kontakt na każdym etapie realizacji.',
+        },
+        {
+          title: 'Odpowiedzialność środowiskowa',
+          text: 'Efektywność energetyczna i przemyślane materiały jako standard, nie dodatek.',
+        },
+        {
+          title: 'Bliskość z klientem',
+          text: 'Każde pytanie zasługuje na konkretną odpowiedź, nie automatyczną.',
+        },
+      ],
+    },
+    timeline: {
+      title: 'Nasza droga',
+      items: [
+        {
+          year: '2013',
+          title: 'Początek działalności',
+          text: 'Pierwsze realizacje w regionie, mały zespół, duże ambicje.',
+        },
+        {
+          year: '2017',
+          title: 'Pierwsza duża inwestycja',
+          text: 'Realizacja pierwszego wielorodzinnego kompleksu mieszkaniowego.',
+        },
+        {
+          year: '2021',
+          title: 'Standard energetyczny',
+          text: 'Pompy ciepła i fotowoltaika jako standard we wszystkich nowych projektach.',
+        },
+        {
+          year: '2026',
+          title: 'Dziś',
+          text: 'Ponad 48 zrealizowanych inwestycji i zespół ponad 30 specjalistów.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Chcesz poznać nas bliżej?',
+      subtitle:
+        'Zapraszamy do kontaktu — chętnie opowiemy więcej o naszych realizacjach.',
+      button: 'Skontaktuj się',
+    },
+  },
   footer: {
     openHours: {
       title: 'Godziny otwarcia:',

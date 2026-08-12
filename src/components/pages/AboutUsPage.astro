@@ -1,0 +1,145 @@
+---
+import { getTranslations, EN_LOCALE, type Locale } from '@/i18n/locales/utils';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const contactHref = locale === EN_LOCALE ? '/en/contact/' : '/kontakt/';
+---
+
+<!-- HERO -->
+<section class="py-16 sm:py-24">
+  <div class="mx-auto max-w-7xl px-5">
+    <p
+      class="font-mono text-xs tracking-[0.2em] text-[var(--color-accent)] uppercase"
+    >
+      {t.aboutPage.eyebrow}
+    </p>
+    <h1
+      class="mt-3 max-w-2xl font-serif text-4xl font-medium text-[var(--color-ink)] sm:text-5xl"
+    >
+      {t.aboutPage.title}
+    </h1>
+    <p class="mt-4 max-w-xl text-[var(--color-muted)]">
+      {t.aboutPage.subtitle}
+    </p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="border-t border-[var(--color-border)] py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <div
+        class="aspect-[4/3] rounded-2xl bg-[var(--color-surface)] ring-1 ring-[var(--color-border)] lg:order-2"
+      >
+      </div>
+
+      <div class="lg:order-1">
+        <p
+          class="font-mono text-xs tracking-[0.2em] text-[var(--color-accent)] uppercase"
+        >
+          {t.aboutPage.story.eyebrow}
+        </p>
+        <h2
+          class="mt-3 font-serif text-3xl font-medium text-[var(--color-ink)] sm:text-4xl"
+        >
+          {t.aboutPage.story.title}
+        </h2>
+        <p class="mt-5 text-[var(--color-muted)]">
+          {t.aboutPage.story.paragraph1}
+        </p>
+        <p class="mt-4 text-[var(--color-muted)]">
+          {t.aboutPage.story.paragraph2}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section
+  class="border-t border-[var(--color-border)] bg-[var(--color-surface)] py-20 sm:py-28"
+>
+  <div class="mx-auto max-w-7xl px-5">
+    <h2
+      class="max-w-md font-serif text-3xl font-medium text-[var(--color-ink)] sm:text-4xl"
+    >
+      {t.aboutPage.values.title}
+    </h2>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.aboutPage.values.items.map((item) => (
+          <div class="border-t border-[var(--color-border)] pt-5">
+            <h3 class="font-medium text-[var(--color-ink)]">{item.title}</h3>
+            <p class="mt-2 text-sm text-[var(--color-muted)]">{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="border-t border-[var(--color-border)] py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5">
+    <h2
+      class="font-serif text-3xl font-medium text-[var(--color-ink)] sm:text-4xl"
+    >
+      {t.aboutPage.timeline.title}
+    </h2>
+
+    <div class="relative mt-14 pl-8 sm:pl-10">
+      <div
+        class="absolute top-0 bottom-0 left-3 w-px bg-[var(--color-border)] sm:left-4"
+      >
+      </div>
+
+      <div class="flex flex-col gap-12">
+        {
+          t.aboutPage.timeline.items.map((item) => (
+            <div class="relative">
+              <span class="absolute top-1 -left-8 flex size-6 items-center justify-center rounded-full border-2 border-[var(--color-brand)] bg-[var(--color-bg)] sm:-left-10">
+                <span class="size-2 rounded-full bg-[var(--color-brand)]" />
+              </span>
+
+              <p class="font-mono text-sm font-medium text-[var(--color-brand)]">
+                {item.year}
+              </p>
+              <h3 class="mt-1 font-medium text-[var(--color-ink)]">
+                {item.title}
+              </h3>
+              <p class="mt-1.5 max-w-lg text-sm text-[var(--color-muted)]">
+                {item.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-[var(--color-brand-surface)] py-16 text-white">
+  <div class="mx-auto max-w-7xl px-5">
+    <div class="flex flex-wrap items-center justify-between gap-6">
+      <div>
+        <h2 class="font-serif text-2xl font-medium sm:text-3xl">
+          {t.aboutPage.cta.title}
+        </h2>
+        <p class="mt-2 text-white/80">{t.aboutPage.cta.subtitle}</p>
+      </div>
+      <a
+        href={contactHref}
+        class="shrink-0 rounded-full bg-white px-6 py-3 text-sm font-medium text-[var(--color-brand-surface)] transition-transform hover:scale-105"
+      >
+        {t.aboutPage.cta.button}
+      </a>
+    </div>
+  </div>
+</section>

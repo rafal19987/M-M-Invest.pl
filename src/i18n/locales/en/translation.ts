@@ -118,6 +118,71 @@ export const en = {
       message: 'Describe in a few sentences what your inquiry is about...',
     },
   },
+  aboutPage: {
+    eyebrow: 'About us',
+    title: 'We build with people in mind, not just square meters',
+    subtitle:
+      "MM Invest is a team that treats every project as a place they'd want to live in themselves.",
+    story: {
+      eyebrow: 'Our story',
+      title: 'From a small construction team to a trusted developer',
+      paragraph1:
+        "We started as a small team delivering individual projects in the region. Today, after more than a decade of experience, we're a team of architects, engineers, and specialists who've together completed dozens of residential developments.",
+      paragraph2:
+        "What hasn't changed since day one is our approach — we treat every project individually, listen to the needs of future residents, and prioritize quality that stands the test of time.",
+    },
+    values: {
+      title: 'What guides us',
+      items: [
+        {
+          title: 'Solidity',
+          text: 'Materials and workmanship that never compromise on durability.',
+        },
+        {
+          title: 'Transparency',
+          text: 'Clear terms of collaboration and constant contact at every stage.',
+        },
+        {
+          title: 'Environmental responsibility',
+          text: 'Energy efficiency and thoughtful materials as standard, not an extra.',
+        },
+        {
+          title: 'Client closeness',
+          text: 'Every question deserves a real answer, not an automated one.',
+        },
+      ],
+    },
+    timeline: {
+      title: 'Our journey',
+      items: [
+        {
+          year: '2013',
+          title: 'Founded',
+          text: 'First projects in the region, a small team, big ambitions.',
+        },
+        {
+          year: '2017',
+          title: 'First major project',
+          text: 'Completion of our first multi-family residential complex.',
+        },
+        {
+          year: '2021',
+          title: 'Energy standard',
+          text: 'Heat pumps and solar panels became standard in all new projects.',
+        },
+        {
+          year: '2026',
+          title: 'Today',
+          text: 'Over 48 completed developments and a team of 30+ specialists.',
+        },
+      ],
+    },
+    cta: {
+      title: 'Want to get to know us better?',
+      subtitle: "Get in touch — we'd love to tell you more about our projects.",
+      button: 'Get in touch',
+    },
+  },
   footer: {
     openHours: {
       title: 'Open hours:',
